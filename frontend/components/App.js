@@ -59,6 +59,18 @@ export default function App() {
     // If something goes wrong, check the status of the response:
     // if it's a 401 the token might have gone bad, and we should redirect to login.
     // Don't forget to turn off the spinner!
+    setMessage('')
+    setSpinnerOn(true)
+    axiosWithAuth().get('/articles')
+    .then(res => {
+      setArticles(res.data.articles)
+      setMessage(res.data.message)
+      setSpinnerOn(false)
+    })
+    .catch(err => {
+      console.log({err})
+      navigate('/')
+    })
   }
 
   const postArticle = article => {
@@ -94,7 +106,7 @@ export default function App() {
           <Route path="articles" element={
             <AuthRoute>
               <ArticleForm />
-              <Articles />
+              <Articles articles={articles} getArticles={getArticles}/>
             </AuthRoute>
           } />
         </Routes>

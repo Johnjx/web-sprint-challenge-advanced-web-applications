@@ -6,7 +6,7 @@ export const axiosWithAuth = () => {
     return axios.create({
         baseURL: "http://localhost:9000/api",
         headers: {
-            authorization: token
+            Authorization: token
         }
     })
 }
