@@ -120,7 +120,8 @@ export default function App() {
             <AuthRoute>
               <ArticleForm
               postArticle={postArticle}
-              currentArticle={articles.find(art => art.article_id === currentArticleId)} 
+              setCurrentArticleId={setCurrentArticleId} 
+              currentArticle={articles.find(art => art.article_id === currentArticleId)}
               />
               <Articles
               articles={articles} 
