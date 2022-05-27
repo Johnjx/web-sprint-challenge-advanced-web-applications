@@ -78,6 +78,7 @@ export default function App() {
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
     // to inspect the response from the server.
+
   }
 
   const updateArticle = ({ article_id, article }) => {
@@ -117,7 +118,10 @@ export default function App() {
           <Route path="/" element={<LoginForm login={login}/>} />
           <Route path="articles" element={
             <AuthRoute>
-              <ArticleForm />
+              <ArticleForm
+              postArticle={postArticle}
+              currentArticle={articles.find(art => art.article_id === currentArticleId)} 
+              />
               <Articles
               articles={articles} 
               getArticles={getArticles} 
