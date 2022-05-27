@@ -87,6 +87,18 @@ export default function App() {
 
   const deleteArticle = article_id => {
     // ✨ implement
+    setMessage('')
+    setSpinnerOn(true)
+    axiosWithAuth().delete(`${articlesUrl}/${article_id}`)
+    .then(res => {
+      setArticles(articles.filter(art => art.article_id !== article_id))
+      setMessage(res.data.message)
+      setSpinnerOn(false)
+    })
+    .catch(err => {
+      console.log({err})
+      navigate('/')
+    })
   }
 
   return (
@@ -106,7 +118,13 @@ export default function App() {
           <Route path="articles" element={
             <AuthRoute>
               <ArticleForm />
-              <Articles articles={articles} getArticles={getArticles}/>
+              <Articles
+              articles={articles} 
+              getArticles={getArticles} 
+              deleteArticle={deleteArticle}
+              currentArticleId={currentArticleId}
+              setCurrentArticleId={setCurrentArticleId}
+              />
             </AuthRoute>
           } />
         </Routes>
