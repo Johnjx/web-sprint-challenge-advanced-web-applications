@@ -78,12 +78,51 @@ export default function App() {
     // The flow is very similar to the `getArticles` function.
     // You'll know what to do! Use log statements or breakpoints
     // to inspect the response from the server.
-
+    setMessage('')
+    setSpinnerOn(true)
+    const newArticle = {
+      title: article.title, 
+      text: article.text, 
+      topic: article.topic
+    }
+    axiosWithAuth().post('/articles', newArticle)
+    .then(res => {
+      setArticles(articles.concat(res.data.article))
+      setMessage(res.data.message)
+      setSpinnerOn(false)
+    })
+    .catch(err => {
+      console.log({err})
+      navigate('/')
+    })
   }
 
   const updateArticle = ({ article_id, article }) => {
     // ✨ implement
     // You got this!
+    const newArticle = {
+      topic: article.topic,
+      text: article.text, 
+      title: article.title, 
+    }
+    setMessage('')
+    setSpinnerOn(true)
+    axiosWithAuth().put(`/articles/${article_id}`, newArticle)
+    .then(res => {
+      setArticles(articles.map(art => {
+        if (art.article_id === currentArticleId) {
+          return res.data.article
+        } else {
+          return art
+        }
+      }))
+      setMessage(res.data.message)
+      setSpinnerOn(false)
+    })
+    .catch(err => {
+      console.log({err})
+      navigate('/')
+    })
   }
 
   const deleteArticle = article_id => {
@@ -120,6 +159,7 @@ export default function App() {
             <AuthRoute>
               <ArticleForm
               postArticle={postArticle}
+              updateArticle={updateArticle}
               setCurrentArticleId={setCurrentArticleId} 
               currentArticle={articles.find(art => art.article_id === currentArticleId)}
               />
