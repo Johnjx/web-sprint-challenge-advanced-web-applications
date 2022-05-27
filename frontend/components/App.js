@@ -69,6 +69,8 @@ export default function App() {
     })
     .catch(err => {
       console.log({err})
+      setMessage('Ouch: jwt malformed')
+      setSpinnerOn(false)
       navigate('/')
     })
   }
@@ -93,6 +95,8 @@ export default function App() {
     })
     .catch(err => {
       console.log({err})
+      setMessage('Ouch: jwt malformed')
+      setSpinnerOn(false)
       navigate('/')
     })
   }
@@ -121,6 +125,8 @@ export default function App() {
     })
     .catch(err => {
       console.log({err})
+      setMessage('Ouch: jwt malformed')
+      setSpinnerOn(false)
       navigate('/')
     })
   }
@@ -137,6 +143,8 @@ export default function App() {
     })
     .catch(err => {
       console.log({err})
+      setMessage('Ouch: jwt malformed')
+      setSpinnerOn(false)
       navigate('/')
     })
   }
